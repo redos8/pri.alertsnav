@@ -1,6 +1,6 @@
 {
   "name": "pri.alertsnav",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ClassNavigation",
   "main": "AlertsNav.js",
   "scripts": {
