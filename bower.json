@@ -1,0 +1,17 @@
+{
+  "name": "pri.alertsnav",
+  "description": "ClassNavigation",
+  "main": "AlertsNav.js",
+  "authors": [
+    "Yuri Petrov (theredos7@gmail.com)"
+  ],
+  "license": "BSD-2-Clause",
+  "homepage": "https://github.com/redos8/pri.alertsnav",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
