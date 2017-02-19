@@ -52,7 +52,6 @@ class AlertsNav {
 	 * Reading offset's of menu elements
 	 */
 	readNavElements() {
-		console.log("readNavElements");
 		this.navItemsPos = [];
 		this.navItemsWidth = [];
 
@@ -62,7 +61,6 @@ class AlertsNav {
 			if ($(item).is('[data-slide-parent]')) {
 				if (Array.isArray(this.navItemsPos[this.navItemsPos.length - 1])) {
 					this.navItemsPos[this.navItemsPos.length - 1].push(offset);
-					console.log(offset);
 				} else {
 					this.navItemsPos.push([offset]);
 				}
@@ -196,9 +194,6 @@ class AlertsNav {
 	scrollTo(e) {
 		// Convert data attribute 'slide-1' to number and pick element by index
 		let index = parseInt((String($(e.currentTarget).data('nav')).match(/slide\-([0-9]+)/))[1]);
-		let $to = $('[data-slide]').eq(index);
-		let to = $('[data-slide]').get(parseInt((String($(e.currentTarget).data('nav')).match(/slide\-([0-9]+)/))[1]))
-		console.log($('[data-slide]'), $to.is(to));
 		let lineArray = _.flatten(this.navItemsPos);
 
 
