@@ -4,6 +4,7 @@
   "description": "ClassNavigation",
   "main": "AlertsNav.js",
   "scripts": {
+    "build": "babel AlertsNav.js -o alertsnav.es5.js --presets es2015",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,5 +15,9 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/redos8/pri.alertsnav/issues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0"
   }
 }
