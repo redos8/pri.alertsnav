@@ -43,7 +43,7 @@ var AlertsNav = function () {
 			$(window).on('resize.AlertsNav', _.debounce(this.readNavElements.bind(this), 300));
 
 			this.scrollEndUpdate = _.debounce(this.update.bind(this, true), 200);
-			this.touchFirstUpdate = _.after(3, _.once(this.readNavElements.bind(this)));
+			this.touchFirstUpdate = _.after(3, _.once(this.readNavElements.bind(this, true))); // this fixing a lot of bugs
 			$('.' + this.classProgressItem).css({ width: '100%', transform: 'translateX(-100%)' });
 			$('.sub-nav__item').css({ display: 'block', float: 'left' });
 
@@ -70,9 +70,16 @@ var AlertsNav = function () {
 		value: function readNavElements() {
 			var _this = this;
 
-			console.log("readNavElements");
+			var scrollBack = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
 			this.navItemsPos = [];
 			this.navItemsWidth = [];
+
+			// Scroll to top when we're loaded
+			// it fixing offset's bug
+			if (scrollBack) {
+				$(window).scrollTop(0);
+			}
 
 			// Read offset's for items of menu
 			$('[data-slide]').each(function (i, item) {
@@ -80,7 +87,6 @@ var AlertsNav = function () {
 				if ($(item).is('[data-slide-parent]')) {
 					if (Array.isArray(_this.navItemsPos[_this.navItemsPos.length - 1])) {
 						_this.navItemsPos[_this.navItemsPos.length - 1].push(offset);
-						console.log(offset);
 					} else {
 						_this.navItemsPos.push([offset]);
 					}
@@ -224,9 +230,6 @@ var AlertsNav = function () {
 		value: function scrollTo(e) {
 			// Convert data attribute 'slide-1' to number and pick element by index
 			var index = parseInt(String($(e.currentTarget).data('nav')).match(/slide\-([0-9]+)/)[1]);
-			var $to = $('[data-slide]').eq(index);
-			var to = $('[data-slide]').get(parseInt(String($(e.currentTarget).data('nav')).match(/slide\-([0-9]+)/)[1]));
-			console.log($('[data-slide]'), $to.is(to));
 			var lineArray = _.flatten(this.navItemsPos);
 
 			if (typeof TweenMax !== 'undefined') {

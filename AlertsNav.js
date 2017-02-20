@@ -32,7 +32,7 @@ class AlertsNav {
 		$(window).on('resize.AlertsNav', _.debounce(this.readNavElements.bind(this), 300));
 
 		this.scrollEndUpdate = _.debounce(this.update.bind(this, true), 200);
-		this.touchFirstUpdate = _.after(3, _.once(this.readNavElements.bind(this)));
+		this.touchFirstUpdate = _.after(3, _.once(this.readNavElements.bind(this, true))); // this fixing a lot of bugs
 		$('.' + this.classProgressItem).css({width: '100%', transform: 'translateX(-100%)'});
 		$('.sub-nav__item').css({display: 'block', float: 'left'});
 
@@ -51,9 +51,15 @@ class AlertsNav {
 	/**
 	 * Reading offset's of menu elements
 	 */
-	readNavElements() {
+	readNavElements(scrollBack = false) {
 		this.navItemsPos = [];
 		this.navItemsWidth = [];
+
+		// Scroll to top when we're loaded
+		// it fixing offset's bug
+		if(scrollBack) {
+			$(window).scrollTop(0);
+		}
 
 		// Read offset's for items of menu
 		$('[data-slide]').each((i, item) => {
