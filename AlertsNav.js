@@ -57,7 +57,7 @@ class AlertsNav {
 
 		// Scroll to top when we're loaded
 		// it fixing offset's bug
-		if(scrollBack) {
+		if(scrollBack && ('ontouchstart' in window || navigator.msMaxTouchPoints)) {
 			$(window).scrollTop(0);
 		}
 
