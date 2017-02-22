@@ -40,14 +40,14 @@ var AlertsNav = function () {
 			// Bind events here
 			this.$scroller.on('scroll', this.onScroll.bind(this));
 			$('[data-nav]').on('click', this.scrollTo.bind(this));
-			$(window).on('resize.AlertsNav', _.debounce(this.readNavElements.bind(this), 300));
+			$(window).on('resize.AlertsNav', _.debounce(this.readNavElements.bind(this, false), 300));
 
 			this.scrollEndUpdate = _.debounce(this.update.bind(this, true), 200);
 			this.touchFirstUpdate = _.after(3, _.once(this.readNavElements.bind(this, true))); // this fixing a lot of bugs
 			$('.' + this.classProgressItem).css({ width: '100%', transform: 'translateX(-100%)' });
 			$('.sub-nav__item').css({ display: 'block', float: 'left' });
 
-			this.readNavElements();
+			this.readNavElements(false);
 		}
 	}, {
 		key: 'on',
