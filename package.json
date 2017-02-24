@@ -5,6 +5,7 @@
   "main": "AlertsNav.js",
   "scripts": {
     "build": "babel AlertsNav.js -o alertsnav.es5.js --presets es2015",
+    "dev": "babel AlertsNav.js -o alertsnav.es5.js -w --presets es2015",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

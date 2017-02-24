@@ -81,6 +81,10 @@ var AlertsNav = function () {
 				$(window).scrollTop(0);
 			}
 
+			// Read other offset's
+			this.scrollOffsetMenu = $('.' + this.classProgressItem).parent().height();
+			this.baseProgressWidth = $('.sub-nav__wrapper').width();
+
 			// Read offset's for items of menu
 			$('[data-slide]').each(function (i, item) {
 				var offset = window.ScrollToPlugin ? window.ScrollToPlugin.getOffset(item, window).y | 0 : $(item).offset().top;
@@ -91,13 +95,9 @@ var AlertsNav = function () {
 						_this.navItemsPos.push([offset]);
 					}
 				} else {
-					_this.navItemsPos.push(offset - _this.scrollOffsetY);
+					_this.navItemsPos.push(offset + _this.scrollOffsetMenu);
 				}
 			});
-
-			// Read other offset's
-			this.scrollOffsetMenu = $('.' + this.classProgressItem).parent().height();
-			this.baseProgressWidth = $('.sub-nav__wrapper').width();
 
 			// Read widths of every element menu
 			$('.sub-nav__wrapper').each(function (i, wrapper) {
@@ -109,6 +109,8 @@ var AlertsNav = function () {
 
 			// Touch the update
 			this.update();
+
+			console.log(this.navItemsPos);
 		}
 
 		/**
@@ -126,7 +128,7 @@ var AlertsNav = function () {
 			var activeIndex = -1;
 			var activeSubIndex = -1;
 			var baseProgressWidth = 0;
-			var stepOffset = this.scrollOffsetMenu + this.scrollOffsetY;
+			var stepOffset = this.scrollOffsetY;
 			var position = this.$scroller.scrollTop() + stepOffset;
 
 			// Finding what is active slide by scroll position
@@ -134,7 +136,7 @@ var AlertsNav = function () {
 				if (Array.isArray(el)) {
 					// if we got an array it means that it's values of submenu
 					el.forEach(function (sEl, z) {
-						if (position >= sEl) {
+						if (position + _this2.scrollOffsetMenu >= sEl) {
 							// Fill base width of progressbar by active item of menu
 							z != 0 && (baseProgressWidth += _this2.navItemsWidth[0][z - 1] / _this2.baseProgressWidth);
 							activeSubIndex = z;
@@ -142,7 +144,7 @@ var AlertsNav = function () {
 						}
 					});
 				} else {
-					if (position >= el) {
+					if (position + _this2.scrollOffsetMenu >= el) {
 						activeIndex = i;
 						activeSubIndex = -1;
 					}

@@ -61,6 +61,10 @@ class AlertsNav {
 			$(window).scrollTop(0);
 		}
 
+    // Read other offset's
+    this.scrollOffsetMenu = $('.' + this.classProgressItem).parent().height();
+    this.baseProgressWidth = $('.sub-nav__wrapper').width();
+
 		// Read offset's for items of menu
 		$('[data-slide]').each((i, item) => {
 			let offset = window.ScrollToPlugin ? (window.ScrollToPlugin.getOffset(item, window).y | 0) : $(item).offset().top;
@@ -71,13 +75,9 @@ class AlertsNav {
 					this.navItemsPos.push([offset]);
 				}
 			} else {
-				this.navItemsPos.push(offset - this.scrollOffsetY);
+				this.navItemsPos.push(offset + this.scrollOffsetMenu);
 			}
 		});
-
-		// Read other offset's
-		this.scrollOffsetMenu = $('.' + this.classProgressItem).parent().height();
-		this.baseProgressWidth = $('.sub-nav__wrapper').width();
 
 		// Read widths of every element menu
 		$('.sub-nav__wrapper').each((i, wrapper) => {
@@ -89,7 +89,9 @@ class AlertsNav {
 
 		// Touch the update
 		this.update();
-	}
+
+    console.log(this.navItemsPos);
+  }
 
 
 	/**
@@ -100,14 +102,14 @@ class AlertsNav {
 		let activeIndex = -1;
 		let activeSubIndex = -1;
 		let baseProgressWidth = 0;
-		let stepOffset = this.scrollOffsetMenu + this.scrollOffsetY;
+		let stepOffset = this.scrollOffsetY;
 		let position = this.$scroller.scrollTop() + stepOffset;
 
 		// Finding what is active slide by scroll position
 		this.navItemsPos.forEach((el, i) => {
 			if (Array.isArray(el)) { // if we got an array it means that it's values of submenu
 				el.forEach((sEl, z) => {
-					if (position >= sEl) {
+					if (position + this.scrollOffsetMenu >= sEl) {
 						// Fill base width of progressbar by active item of menu
 						z != 0 && (baseProgressWidth += this.navItemsWidth[0][z - 1] / this.baseProgressWidth);
 						activeSubIndex = z;
@@ -115,7 +117,7 @@ class AlertsNav {
 					}
 				});
 			} else {
-				if (position >= el) {
+				if (position + this.scrollOffsetMenu >= el) {
 					activeIndex = i;
 					activeSubIndex = -1;
 				}
