@@ -89,8 +89,6 @@ class AlertsNav {
 
 		// Touch the update
 		this.update();
-
-    console.log(this.navItemsPos);
   }
 
 

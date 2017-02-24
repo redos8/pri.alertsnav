@@ -109,8 +109,6 @@ var AlertsNav = function () {
 
 			// Touch the update
 			this.update();
-
-			console.log(this.navItemsPos);
 		}
 
 		/**
