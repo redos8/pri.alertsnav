@@ -1,6 +1,6 @@
 /**
  * Navigation Class for PRI Alerts
- * @author Yuriy Petrov at Haymarket Media
+ * @author Yuriy Petrov (theredos7@gmail.com) at Haymarket Media
  */
 
 class AlertsNav {
